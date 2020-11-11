@@ -1,0 +1,88 @@
+<resources>
+    <string name="app_name">Event Planner</string>
+
+    <!--array filled with home options-->
+    <string-array name="Home">
+        <item>Weekly View</item>
+        <item>Calendar View</item>
+        <item>University Bookstore</item>
+        <item>University Email</item>
+        <item>Educational Resources</item>
+        <item>Mindfulness</item>
+        <item>Entertainment</item>
+    </string-array>
+
+    <!--array filled with tab description-->
+    <string-array name="Description">
+        <item>The Weekly View tab will allow you to create, view, and edit your weekly schedule</item>
+        <item>The Calendar View will allow you to view, add, remove items from your monthly calendar</item>
+        <item>The University Bookstore direct you to the UMKC Bookstore</item>
+        <item>The University  email will take you to the outlook log in screen</item>
+        <item>The Educational Resources will direct you to view study resources</item>
+        <item>Need to de-stress? Check out these mindfulness techniques </item>
+        <item>Tired? Check out our entertainment center</item>
+    </string-array>
+
+    <!--array filled with days of week-->
+    <string-array name="Weekdays">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+
+    <!--THIS IS WHERE YOU CAN INSERT DATA RETRIEVED FROM CANVAS FOR DAILY SCHEDULE
+    NOTE THAT ARRAY FOR TIME MUST HAVE THE SAME NUMBER OF ELEMENTS AS IN HERE. YOU WILL
+    RECEIVE AN OUT OF BOUNDS ERROR IF THEY DO NOT MATCH AND APP WILL CRASH-->
+    <string-array name="Monday">
+        <item>Monday Placeholder Class</item>
+    </string-array>
+    <string-array name="Tuesday">
+        <item>Tuesday Placeholder Class</item>
+    </string-array>
+    <string-array name="Wednesday">
+        <item>Wednesday Placeholder Class</item>
+    </string-array>
+    <string-array name="Thursday">
+        <item>Thursday Placeholder Class</item>
+    </string-array>
+    <string-array name="Friday">
+        <item>Friday Placeholder Class</item>
+    </string-array>
+    <string-array name="Saturday">
+        <item>Saturday Plans</item>
+    </string-array>
+    <string-array name="Sunday">
+        <item>Sunday Plans</item>
+    </string-array>
+
+    <!---THIS IS WHERE YOU CAN INSERT TIME FOR EACH CLASS FOR DAILY SCHEDULE
+    NOTE THAT ARRAY SIZE FOR EACH DAY MUST MATCH ARRAY SIZE FROM DAILY SCHEDULE ARRAY.
+    YOU WILL RECEIVE AN OUT OF BOUNDS ERROR IF THEY DO NOT MATCH AND APP WILL CRASH-->
+    <string-array name="t_mon">
+        <item>0900-1000</item>
+    </string-array>
+    <string-array name="t_tues">
+        <item>1000-1100</item>
+    </string-array>
+    <string-array name="t_wed">
+        <item>0800-0920</item>
+    </string-array>
+    <string-array name="t_thur">
+        <item>1100-1200</item>
+    </string-array>
+    <string-array name="t_fri">
+        <item>1400-1500</item>
+    </string-array>
+    <string-array name="t_sat">
+        <item>0950-1050</item>
+    </string-array>
+    <string-array name="t_sun">
+        <item>2000-2100</item>
+    </string-array>
+
+</resources>

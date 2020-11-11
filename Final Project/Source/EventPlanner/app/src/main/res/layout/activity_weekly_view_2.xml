@@ -1,0 +1,39 @@
+<!--section used to create a card like effect for the users selections.
+Note that the elevation will help produce a shadow effect on the "cards"-->
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:elevation="4dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!--used for letter bubble-->
+        <com.example.eventplanner.Utils.LetterImageView
+            android:id="@+id/letters"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_margin="10dp"/>
+
+
+        <!--creating text format for card here. This is where weekday displays-->
+        <TextView
+            android:id="@+id/week_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/letters"
+            android:layout_marginTop="6dp"
+            android:text="Day"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
