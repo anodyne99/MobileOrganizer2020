@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "438751647401",
+    "firebase_url": "https://fir-a4c8c.firebaseio.com",
+    "project_id": "fir-a4c8c",
+    "storage_bucket": "fir-a4c8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438751647401:android:cd95c3f6d726e04d143bb8",
+        "android_client_info": {
+          "package_name": "com.example.eventplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438751647401-49jdpb9p2jhi3pcluiembolem8abdgr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaH3GedvGa7U95LxbIAR0fJXfCjnVjl9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438751647401-49jdpb9p2jhi3pcluiembolem8abdgr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438751647401:android:5686fdaa13fc9fb2143bb8",
+        "android_client_info": {
+          "package_name": "com.vijaya.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438751647401-49jdpb9p2jhi3pcluiembolem8abdgr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaH3GedvGa7U95LxbIAR0fJXfCjnVjl9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438751647401-49jdpb9p2jhi3pcluiembolem8abdgr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
