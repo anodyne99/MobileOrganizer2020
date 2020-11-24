@@ -1,5 +1,6 @@
 package com.example.eventplanner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +20,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class HomeActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +41,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    //Redirecting to LoginActivity
+    public void redirectToLoginActivity (View v) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.getInstance().signOut();
+
+        Intent redirect = new Intent(HomeActivity.this, LoginActivity.class);
+        startActivity(redirect);
+
+
+    }
 
 }
