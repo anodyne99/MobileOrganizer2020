@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginBtn=(Button)findViewById(R.id.loginBtn);
-        lunch=(Button)findViewById(R.id.lunch);
+        lunch=(Button)findViewById(R.id.launch);
         update=(Button)findViewById(R.id.update);
         save=(Button)findViewById(R.id.save);
         registerBtn = (Button) findViewById(R.id.registerBtn);
