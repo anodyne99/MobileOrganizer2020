@@ -62,7 +62,7 @@
         android:layout_height="62dp"
         android:layout_marginBottom="32dp"
         android:text="LOGIN"
-        android:onClick="redirectToMainActivity"
+        android:onClick="redirectToHomeActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

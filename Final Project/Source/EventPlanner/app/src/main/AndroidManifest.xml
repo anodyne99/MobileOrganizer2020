@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".IndividualDay"></activity>
         <activity android:name=".WeeklyView" />
+        <activity android:name=".HomeActivity" />
 
         <activity android:name=".LoginActivity">
             <intent-filter>
