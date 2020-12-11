@@ -1,9 +1,14 @@
 package com.example.eventplanner;
 
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.content.Context;
 
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,12 +16,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.eventplanner.Utils.LetterImageView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 
 /****************************************EDIT THIS FOR API INSERTION. THIS IS ONLY A LAYOUT*******
@@ -27,17 +37,32 @@ public class IndividualDay extends AppCompatActivity {
     private ListView lists;
     private Toolbar toolbar;
     //made public in case other activity needs access. Arrays that each hold daily activities
-    public static String[] Mon, time_Mon;
-    public static String[] Tues, time_Tues;
-    public static String[] Wed, time_Wed;
-    public static String[] Thurs, time_Thurs;
-    public static String[] Fri, time_Fri;
-    public static String[] Sat, time_Sat;
-    public static String[] Sun, time_Sun;
+    public ArrayList<String> Mon = new ArrayList<String>();
+    public ArrayList<String> time_Mon = new ArrayList<String>();
+    public ArrayList<String> Tues = new ArrayList<String>();
+    public ArrayList<String> time_Tues = new ArrayList<String>();
+    public ArrayList<String> Wed = new ArrayList<String>();
+    public ArrayList<String> time_Wed = new ArrayList<String>();
+    public ArrayList<String> Thurs = new ArrayList<String>();
+    public ArrayList<String> time_Thurs = new ArrayList<String>();
+    public ArrayList<String> Fri = new ArrayList<String>();
+    public ArrayList<String> time_Fri = new ArrayList<String>();
+    public ArrayList<String> Sat = new ArrayList<String>();
+    public ArrayList<String> time_Sat = new ArrayList<String>();
+    public ArrayList<String> Sun = new ArrayList<String>();
+    public ArrayList<String> time_Sun = new ArrayList<String>();
+
 
     //used in conditional statements
-    private String[] day_selected;
-    private String[] time_selected;
+    private ArrayList<String> day_selected;
+    private ArrayList<String> time_selected;
+
+    //used for calendar call and handling
+    private int dayOfWeekChosen, todayDate, dateChosen;
+    private Calendar today = Calendar.getInstance();
+    private int dayToday;
+    private int monthToday;
+    private int yearToday;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP) //allows viewCreator to work
     @Override
@@ -49,8 +74,28 @@ public class IndividualDay extends AppCompatActivity {
         viewCreator();
         create_toolbar();
         listCreator();
+        dateSetter();
     }
 
+    public void dateSetter(){
+        todayDate = today.get(Calendar.DAY_OF_MONTH);
+        dayToday = today.get(Calendar.DAY_OF_WEEK);
+        monthToday = today.get(Calendar.MONTH) + 1;
+        yearToday = today.get(Calendar.YEAR);
+        if (dayToday > dayOfWeekChosen){
+            dateChosen =  todayDate - dayOfWeekChosen;
+        }
+        else {
+            int dayDiff = dayOfWeekChosen - dayToday;
+            dateChosen = todayDate + dayDiff;
+        }
+        calendarReader(dateChosen, monthToday, yearToday);
+    }
+
+
+    public void calendarReader(int day, int month, int year){
+
+    }
     /**
      * Function will act as template to create the cards for user interface
      */
@@ -72,54 +117,44 @@ public class IndividualDay extends AppCompatActivity {
     }
 
     private void listCreator(){
-        //day assignment
-        Mon = getResources().getStringArray(R.array.Monday);
-        Tues = getResources().getStringArray(R.array.Tuesday);
-        Wed = getResources().getStringArray(R.array.Wednesday);
-        Thurs = getResources().getStringArray(R.array.Thursday);
-        Fri = getResources().getStringArray(R.array.Friday);
-        Sat = getResources().getStringArray(R.array.Saturday);
-        Sun = getResources().getStringArray(R.array.Sunday);
-
-        //time assignment
-        time_Mon = getResources().getStringArray(R.array.t_mon);
-        time_Tues = getResources().getStringArray(R.array.t_tues);
-        time_Wed = getResources().getStringArray(R.array.t_wed);
-        time_Thurs= getResources().getStringArray(R.array.t_thur);
-        time_Fri = getResources().getStringArray(R.array.t_fri);
-        time_Sat = getResources().getStringArray(R.array.t_sat);
-        time_Sun = getResources().getStringArray(R.array.t_sun);
-
         //retrieves selected day from WeeklyView. Set to null if info cannot be found
         String selected_day = WeeklyView.sharedInfo.getString(WeeklyView.sel_day, null);
 
         //format copied from MainActivity. Use switch case if you want. Will set info based off selected day
         if (selected_day.equalsIgnoreCase("Monday")) {
             day_selected = Mon;
+            dayOfWeekChosen = 2;
             time_selected = time_Mon;
         } else if (selected_day.equalsIgnoreCase("Tuesday")) {
             day_selected = Tues;
+            dayOfWeekChosen = 3;
             time_selected = time_Tues;
         } else if (selected_day.equalsIgnoreCase("Wednesday")) {
             day_selected = Wed;
+            dayOfWeekChosen = 4;
             time_selected = time_Wed;
         } else if (selected_day.equalsIgnoreCase("Thursday")) {
             day_selected = Thurs;
+            dayOfWeekChosen = 5;
             time_selected = time_Thurs;
         } else if (selected_day.equalsIgnoreCase("Friday")) {
             day_selected = Fri;
+            dayOfWeekChosen = 6;
             time_selected = time_Fri;
         } else if (selected_day.equalsIgnoreCase("Saturday")) {
             day_selected = Sat;
+            dayOfWeekChosen = 7;
             time_selected = time_Sat;
         } else {
             day_selected = Sun;
+            dayOfWeekChosen = 1;
             time_selected = time_Sun;
         }
 
         Adapter adapter = new Adapter(this, day_selected, time_selected);
         lists.setAdapter(adapter);
     }
+
 
     /**
      * Adapter used for list view. Layout of the listview
@@ -129,21 +164,20 @@ public class IndividualDay extends AppCompatActivity {
         private Context myContext; //access to application-specific resources
         private LayoutInflater inflater; //define the row layout. Loads different layouts into views
         private TextView subject, time; //used for each card creation
-        private String[] classA, timeA; //used to save info
+        private ArrayList<String> classA, timeA; //used to save info
         private LetterImageView letter; //images used here
 
         /**
-         * Constructor is created here. Used to help pupulate listview. Will be called on start up
+         * Constructor is created here. Used to help populate listview. Will be called on start up
          * @param c
          * @param subjects
          * @param times
          */
-        public Adapter(Context c, String[] subjects, String[] times) {
+        public Adapter(Context c, ArrayList<String> subjects, ArrayList<String> times) {
             myContext = c;
             classA = subjects;
             timeA = times;
             inflater = LayoutInflater.from(c);
-
         }
 
         /**
@@ -152,7 +186,7 @@ public class IndividualDay extends AppCompatActivity {
          */
         @Override
         public int getCount() {
-            return classA.length;//returns array length
+            return classA.size();//returns array length
         }
 
         /**
@@ -162,7 +196,7 @@ public class IndividualDay extends AppCompatActivity {
          */
         @Override
         public Object getItem(int position) {
-            return classA[position];
+            return classA.get(position);
         }
 
         /**
@@ -196,11 +230,11 @@ public class IndividualDay extends AppCompatActivity {
             letter = (LetterImageView) convertView.findViewById(R.id.letters_day);
 
             //set text info here
-            subject.setText(classA[position]);
-            time.setText(timeA[position]);
+            subject.setText(classA.get(position));
+            time.setText(timeA.get(position));
 
             letter.setOval(true);
-            letter.setLetter(classA[position].charAt(0));
+            letter.setLetter(classA.get(position).charAt(0));
 
             /*This section will set the professor for each subject created in strings.xml NOT SURE IF I WANT THIS
             //WILL MAKE MORE EDITS WHEN INFO IS ADDED
