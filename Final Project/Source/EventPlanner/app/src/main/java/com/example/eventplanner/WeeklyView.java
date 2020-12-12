@@ -18,12 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import java.util.Calendar;
 
 
 import androidx.appcompat.widget.Toolbar;
-
-import com.example.eventplanner.Utils.LetterImageView;
 
 
 public class WeeklyView extends AppCompatActivity {

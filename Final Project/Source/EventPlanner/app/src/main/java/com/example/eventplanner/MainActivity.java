@@ -92,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(browserIntent);
                         break;
                     }
-                    //WORK IN PROGRESS. PLACEHOLDER USED FOR NOW
-                    case 4: {//if fifth option is selected, open new actiivty showing educational resources
+                    case 4: {//if fifth option is selected, open new activity showing educational resources
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://pitt.libguides.com/openeducation/biglist"));
                         startActivity(browserIntent);
                         break;
@@ -101,8 +100,9 @@ public class MainActivity extends AppCompatActivity {
                     case 5: {//if sixth option chosen, open new activity showing youtube playlist. youtube api used here
                         break;
                     }
-                    //WORK IN PROGRESS BUTTON NON FUNCTIONAL FOR NOW
                     case 6: {//if seventh option is chosen, open new activity, grid view of options for 2 games, facebook, hulu, netflix, youtube.
+                        Intent entertainIntent = new Intent(MainActivity.this, EntertainActivity.class);
+                        startActivity(entertainIntent);
                         break;
                     }
                     default: break;

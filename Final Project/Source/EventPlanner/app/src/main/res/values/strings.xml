@@ -34,5 +34,13 @@
         <item>Sunday</item>
     </string-array>
 
+    <string-array name ="Entertainment">
+        <item>Hulu</item>
+        <item>Netflix</item>
+        <item>Youtube</item>
+        <item>Facebook</item>
+        <item>Twitter</item>
+    </string-array>
+
 
 </resources>
