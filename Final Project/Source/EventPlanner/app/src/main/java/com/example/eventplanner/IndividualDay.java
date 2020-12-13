@@ -1,6 +1,8 @@
 package com.example.eventplanner;
 
+import android.Manifest;
 import android.content.ContentResolver;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -21,6 +23,8 @@ import androidx.annotation.RequiresApi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.provider.CalendarContract;
 
@@ -55,6 +59,8 @@ public class IndividualDay extends AppCompatActivity {
     private int monthToday;
     private int yearToday;
 
+    private static final int CALENDAR_PERMISSION_CODE = 100;
+
     public static final String[] EVENTS_COLUMNS =  new String[] {
             CalendarContract.Events._ID,
             CalendarContract.Events.CALENDAR_ID,
@@ -81,6 +87,7 @@ public class IndividualDay extends AppCompatActivity {
         viewCreator();
         create_toolbar();
         listCreator();
+        checkPermission(Manifest.permission.READ_CALENDAR, CALENDAR_PERMISSION_CODE);
         dateSetter();
     }
 
@@ -99,8 +106,26 @@ public class IndividualDay extends AppCompatActivity {
         calendarReader(yearToday, monthToday, dateChosen);
     }
 
+    public void checkPermission(String permission, int requestCode) {
+        if (ContextCompat.checkSelfPermission(IndividualDay.this, permission)
+                == PackageManager.PERMISSION_DENIED) {
 
-    // This isn't updating the day properly and I don't know why.
+            // Requesting the permission
+            ActivityCompat.requestPermissions(IndividualDay.this,
+                    new String[]{permission},
+                    requestCode);
+        } else {
+            Toast.makeText(IndividualDay.this,
+                    "Permission already granted",
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
+
+
+
+        // This isn't updating the day properly and I don't know why.
     // It's being passed the correct selected day
     public void calendarReader(int year, int month, int day) {
         Cursor cur = null;
@@ -112,7 +137,7 @@ public class IndividualDay extends AppCompatActivity {
         long beginTimeA = beginTime.getTimeInMillis();
         long endTimeA = endTime.getTimeInMillis();
 
-        String selection = "((" + beginTimeA + " <= ?) AND (" + endTimeA + " >= ?))";
+        String selection = "((" + CalendarContract.Events.DTSTART + " >= " + beginTimeA + ") AND (" + CalendarContract.Events.DTEND + " <= " + endTimeA + "))";
 
         cur = getContentResolver().query(CalendarContract.Events.CONTENT_URI, EVENTS_COLUMNS, selection, null, null);
 
