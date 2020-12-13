@@ -2,6 +2,8 @@ package com.example.eventplanner;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -10,6 +12,7 @@ import android.content.Context;
 
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.telephony.mbms.MbmsErrors;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +22,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -59,7 +64,7 @@ public class IndividualDay extends AppCompatActivity {
     private int monthToday;
     private int yearToday;
 
-    private static final int CALENDAR_PERMISSION_CODE = 100;
+    private static final int CALENDAR_PERMISSION_CODE = 1;
 
     public static final String[] EVENTS_COLUMNS =  new String[] {
             CalendarContract.Events._ID,
@@ -87,8 +92,7 @@ public class IndividualDay extends AppCompatActivity {
         viewCreator();
         create_toolbar();
         listCreator();
-        checkPermission(Manifest.permission.READ_CALENDAR, CALENDAR_PERMISSION_CODE);
-        dateSetter();
+        permissionChecker();
     }
 
     public void dateSetter(){
@@ -106,26 +110,33 @@ public class IndividualDay extends AppCompatActivity {
         calendarReader(yearToday, monthToday, dateChosen);
     }
 
-    public void checkPermission(String permission, int requestCode) {
-        if (ContextCompat.checkSelfPermission(IndividualDay.this, permission)
-                == PackageManager.PERMISSION_DENIED) {
+    public void permissionChecker(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)
+        == PackageManager.PERMISSION_GRANTED){
+            dateSetter();
+        }
+        else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR}, CALENDAR_PERMISSION_CODE);
+        }
+    }
 
-            // Requesting the permission
-            ActivityCompat.requestPermissions(IndividualDay.this,
-                    new String[]{permission},
-                    requestCode);
-        } else {
-            Toast.makeText(IndividualDay.this,
-                    "Permission already granted",
-                    Toast.LENGTH_SHORT)
-                    .show();
+    @NonNull
+    public void onRequestPermissionsResult(int reqCode, @NonNull String[] perm, @NonNull int[] grantResult){
+        if (reqCode == CALENDAR_PERMISSION_CODE){
+            if(grantResult.length > 0 && grantResult[0] == PackageManager.PERMISSION_GRANTED){
+                dateSetter();
+            }
+        }
+        else {
+            Toast.makeText(this, "This function requires calendar access", Toast.LENGTH_LONG);
+            Intent redirect = new Intent(IndividualDay.this, MainActivity.class);
+            startActivity(redirect);
         }
     }
 
 
 
-
-        // This isn't updating the day properly and I don't know why.
+    // This isn't updating the day properly and I don't know why.
     // It's being passed the correct selected day
     public void calendarReader(int year, int month, int day) {
         Cursor cur = null;
