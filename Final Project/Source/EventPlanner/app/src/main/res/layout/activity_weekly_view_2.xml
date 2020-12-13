@@ -14,7 +14,7 @@ Note that the elevation will help produce a shadow effect on the "cards"-->
         android:layout_height="wrap_content">
 
         <!--used for letter bubble-->
-        <com.example.eventplanner.Utils.LetterImageView
+        <com.example.eventplanner.LetterImageView
             android:id="@+id/letters"
             android:layout_width="85dp"
             android:layout_height="85dp"
