@@ -1,14 +1,13 @@
 package com.example.eventplanner;
 
 //import android.support.v7.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,9 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
 
-import com.example.eventplanner.Utils.LetterImageView;
+import androidx.appcompat.widget.Toolbar;
 
 
 public class WeeklyView extends AppCompatActivity {
@@ -30,6 +28,7 @@ public class WeeklyView extends AppCompatActivity {
     private ListView lists; //variable that saves list info
     public static SharedPreferences sharedInfo; //want to share this between activities. made public
     public static String sel_day; //used to store day user selected
+
 
     /**Program start up
      * @param savedInstanceState
@@ -45,6 +44,7 @@ public class WeeklyView extends AppCompatActivity {
         create_toolbar();
         listCreator();
     }
+
 
     /**Retrieved from Override Methods.
      * @param item
@@ -78,7 +78,7 @@ public class WeeklyView extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_weekly);
         lists = (ListView) findViewById(R.id.weekly_list);
 
-        //shares info across app, however, this info will only be accessible to this sectoin
+        //shares info across app, however, this info will only be accessible to this section
         sharedInfo = getSharedPreferences("DAY", MODE_PRIVATE);
     }
 
@@ -142,6 +142,7 @@ public class WeeklyView extends AppCompatActivity {
 
                 }
             }
+
         });
     }
 
