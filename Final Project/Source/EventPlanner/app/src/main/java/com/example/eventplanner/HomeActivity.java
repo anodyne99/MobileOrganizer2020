@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
         lunch = (Button) findViewById(R.id.launch);
-         show = (Button) findViewById(R.id.show);
+        show = (Button) findViewById(R.id.show);
         save = (Button) findViewById(R.id.save);
         registerBtn = (Button) findViewById(R.id.registerBtn);
         name = (EditText) findViewById(R.id.name);
@@ -62,12 +62,8 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(HomeActivity.this,"Data inserted successfully",Toast.LENGTH_LONG).show();
 
                 textView.setText("Name: " + na + " Age: " + ag  + " Gen: " + gen + " Loc: " + loc);
-
-
             }
         });
-
-
      }
 
 

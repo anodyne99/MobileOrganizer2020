@@ -1,14 +1,9 @@
 package com.example.eventplanner;
 
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.content.Context;
 
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +11,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import com.example.eventplanner.Utils.LetterImageView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
