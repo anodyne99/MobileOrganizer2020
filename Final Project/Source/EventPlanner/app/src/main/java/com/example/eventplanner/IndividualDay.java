@@ -2,6 +2,7 @@ package com.example.eventplanner;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,12 +31,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import android.net.Uri.Builder;
 
 import android.provider.CalendarContract;
 
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
 /****************************************EDIT THIS FOR API INSERTION. THIS IS ONLY A LAYOUT*******
@@ -65,22 +68,7 @@ public class IndividualDay extends AppCompatActivity {
     private int yearToday;
 
     private static final int CALENDAR_PERMISSION_CODE = 1;
-
-    public static final String[] EVENTS_COLUMNS =  new String[] {
-            CalendarContract.Events._ID,
-            CalendarContract.Events.CALENDAR_ID,
-            CalendarContract.Events.TITLE,
-            CalendarContract.Events.DESCRIPTION,
-            CalendarContract.Events.EVENT_LOCATION,
-            CalendarContract.Events.DTSTART,
-            CalendarContract.Events.DTEND,
-            CalendarContract.Events.EVENT_TIMEZONE,
-            CalendarContract.Events.HAS_ALARM,
-            CalendarContract.Events.ALL_DAY,
-            CalendarContract.Events.AVAILABILITY,
-            CalendarContract.Events.ACCESS_LEVEL,
-            CalendarContract.Events.STATUS,
-    };
+    
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP) //allows viewCreator to work
     @Override
@@ -134,24 +122,15 @@ public class IndividualDay extends AppCompatActivity {
         }
     }
 
-
-
-    // This isn't updating the day properly and I don't know why.
-    // It's being passed the correct selected day
     public void calendarReader(int year, int month, int day) {
-        Cursor cur = null;
-        Calendar beginTime = Calendar.getInstance();
-        beginTime.set(year, month, day, 0, 1);
-        Calendar endTime = Calendar.getInstance();
-        endTime.set(year, month, day, 23, 59);
-
-        long beginTimeA = beginTime.getTimeInMillis();
-        long endTimeA = endTime.getTimeInMillis();
-
-        String selection = "((" + CalendarContract.Events.DTSTART + " >= " + beginTimeA + ") AND (" + CalendarContract.Events.DTEND + " <= " + endTimeA + "))";
-
-        cur = getContentResolver().query(CalendarContract.Events.CONTENT_URI, EVENTS_COLUMNS, selection, null, null);
-
+        Calendar chosenDay = Calendar.getInstance();
+        chosenDay.set(year, month, day);
+        long startMillis = chosenDay.getTimeInMillis();
+        Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+        builder.appendPath("time");
+        ContentUris.appendId(builder, startMillis);
+        Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
+        startActivity(intent);
     }
     /**
      * Function will act as template to create the cards for user interface
