@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        int currentOrientation = this.getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE){
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 
         //This section will first create the cards,toolbar, then list will be created upon start up
         //order matters
@@ -98,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case 5: {//if sixth option chosen, open new activity showing youtube playlist. youtube api used here
+                        Intent wellnessIntent = new Intent(MainActivity.this, YoutubeActivity.class);
+                        startActivity(wellnessIntent);
                         break;
                     }
                     case 6: {//if seventh option is chosen, open new activity, grid view of options for 2 games, facebook, hulu, netflix, youtube.

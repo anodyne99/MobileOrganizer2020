@@ -5,6 +5,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
 
+    // Allows youtube to be run from the app in OS 11
+    // due to changes in handling other apps opening google apps
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
+
 
     <application
         android:allowBackup="true"
@@ -17,6 +25,8 @@
         <activity android:name="com.example.eventplanner.WeeklyView" />
         <activity android:name="com.example.eventplanner.HomeActivity" />
         <activity android:name="com.example.eventplanner.EntertainActivity" />
+        <activity android:name="com.example.eventplanner.YoutubeActivity"
+            android:configChanges="orientation|screenSize"></activity>
 
         <activity android:name="com.example.eventplanner.LoginActivity">
             <intent-filter>
