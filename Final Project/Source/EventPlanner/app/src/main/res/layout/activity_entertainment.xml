@@ -4,29 +4,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".MainActivity" >
+    android:layout_height="match_parent"
+    tools:context=".EntertainActivity" >
 
     <androidx.appcompat.widget.Toolbar
-        android:id = "@+id/toolbar_weekly"
+        android:id = "@+id/toolbar_entertain"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:titleTextColor="#FFFFFF"
         />
 
-    <!--used to display home image lists-->
-    <ListView
-        android:id="@+id/weekly_list"
+    <!--used to display entertainment image grid-->
+    <GridView
+        android:id="@+id/simpleGrid"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_weekly"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:divider="@null"
         android:dividerHeight="10dp"
-        android:orientation="vertical"></ListView>
+        android:divider="@null"
+        android:layout_below="@id/toolbar_entertain"
+        android:numColumns="2"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        >
+    </GridView>
 
 </RelativeLayout>
