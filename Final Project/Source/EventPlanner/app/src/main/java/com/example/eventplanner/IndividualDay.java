@@ -100,7 +100,8 @@ public class IndividualDay extends AppCompatActivity {
     }
 
 
-    // This isn't updating the day properly and I don't know why. It's being passed the correct selected day
+    // This isn't updating the day properly and I don't know why.
+    // It's being passed the correct selected day
     public void calendarReader(int year, int month, int day) {
         Cursor cur = null;
         Calendar beginTime = Calendar.getInstance();
@@ -180,5 +181,6 @@ public class IndividualDay extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    // This is to see if this push will update properly now
 
 }
