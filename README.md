@@ -1,2 +1,2 @@
 # MobileOrganizer2020
-A web/mobile hybrid program for event organization
+A mobile program for event organization

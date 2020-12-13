@@ -1,0 +1,54 @@
+<!--section used to create a card like effect for the users selections.
+Note that the elevation will help produce a shadow effect on the "cards"-->
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:elevation="4dp"
+    >
+
+<!--used to produce card layout. Images were found online or borrowed from umkc
+website  since image is small, so is the image layout. Can adjust as needed-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+<!--creating identifier image for each card here -->
+        <ImageView
+            android:id="@+id/mainImage"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            />
+
+<!--creating text format for card here. This is title-->
+        <TextView
+            android:id="@+id/cardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/mainImage"
+            android:layout_marginTop="6dp"
+            android:text="Title"
+            android:textSize="24dp"
+            android:textStyle="bold"
+
+            />
+
+<!--creating text format for card here. This is description-->
+        <TextView
+            android:id="@+id/cardDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/mainImage"
+            android:layout_below="@id/cardTitle"
+            android:layout_marginLeft="10dp"
+            android:text="Description"
+            android:textSize="16dp"
+            android:textStyle="italic"
+            />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
