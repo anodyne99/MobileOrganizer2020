@@ -6,6 +6,7 @@ import android.os.Build;
 import android.content.Context;
 
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,14 +14,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.api.services.calendar.CalendarRequest;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
 /****************************************EDIT THIS FOR API INSERTION. THIS IS ONLY A LAYOUT*******
@@ -48,6 +53,7 @@ public class IndividualDay extends AppCompatActivity {
 
 
     //used in conditional statements
+    private String[] listEvents;
     private ArrayList<String> day_selected;
     private ArrayList<String> time_selected;
 
@@ -88,6 +94,25 @@ public class IndividualDay extends AppCompatActivity {
 
 
     public void calendarReader(int day, int month, int year){
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(year, month, day,00,00, 00);
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(year, month, day, 23, 59, 59);
+
+        String selection = "(( " + CalendarContract.Events.DTSTART + " >= " +
+                startTime.getTimeInMillis() + " ) AND ( " + CalendarContract.Events.DTSTART + " <= "
+                + endTime.getTimeInMillis() + " ))";
+
+        Cursor cursor = this.getBaseContext().getContentResolver().query(CalendarContract.Events.CONTENT_URI, listEvents, selection, null, null);
+
+        if (cursor.moveToFirst()) {
+            do{
+                Toast.makeText( this.getApplicationContext(),
+                        "Title: " + cursor.getString(1) + " Start-Time: " +
+                        (new Date(cursor.getLong(3))).toString(),
+                        Toast.LENGTH_LONG ).show();
+            } while (cursor.moveToNext());
+        }
 
     }
     /**

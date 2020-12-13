@@ -3,8 +3,6 @@ package com.example.eventplanner;
 
 import android.os.Bundle;
 import android.widget.Toast;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
