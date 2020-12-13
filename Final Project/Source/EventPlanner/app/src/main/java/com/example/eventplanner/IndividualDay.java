@@ -255,23 +255,7 @@ public class IndividualDay extends AppCompatActivity {
             letter.setOval(true);
             letter.setLetter(classA.get(position).charAt(0));
 
-            /*This section will set the professor for each subject created in strings.xml NOT SURE IF I WANT THIS
-            //WILL MAKE MORE EDITS WHEN INFO IS ADDED
-            if (classA[position].equalsIgnoreCase("Monday Placeholder Class")) {
-                images.setImageResource(R.drawable.weekly);
-            } else if (classA[position].equalsIgnoreCase("Tuesday Placeholder Class")) {
-                images.setImageResource(R.drawable.calendar);
-            } else if (classA[position].equalsIgnoreCase("Wednesday Placeholder Class")) {
-                images.setImageResource(R.drawable.bookstore);
-            } else if (classA[position].equalsIgnoreCase("Thursday Placeholder Class")) {
-                images.setImageResource(R.drawable.email);
-            } else if (classA[position].equalsIgnoreCase("Friday Placeholder Class")) {
-                images.setImageResource(R.drawable.resources);
-            } else if (classA[position].equalsIgnoreCase("Saturday Plans")) {
-                images.setImageResource(R.drawable.mindfulness);
-            } else {
-                images.setImageResource(R.drawable.entertainment);
-            }*/
+
 
             return convertView;
         }
@@ -288,3 +272,21 @@ public class IndividualDay extends AppCompatActivity {
     }
 
 }
+
+ /*This section will set the professor for each subject created in strings.xml NOT SURE IF I WANT THIS
+            //WILL MAKE MORE EDITS WHEN INFO IS ADDED
+            if (classA[position].equalsIgnoreCase("Monday Placeholder Class")) {
+                images.setImageResource(R.drawable.weekly);
+            } else if (classA[position].equalsIgnoreCase("Tuesday Placeholder Class")) {
+                images.setImageResource(R.drawable.calendar);
+            } else if (classA[position].equalsIgnoreCase("Wednesday Placeholder Class")) {
+                images.setImageResource(R.drawable.bookstore);
+            } else if (classA[position].equalsIgnoreCase("Thursday Placeholder Class")) {
+                images.setImageResource(R.drawable.email);
+            } else if (classA[position].equalsIgnoreCase("Friday Placeholder Class")) {
+                images.setImageResource(R.drawable.resources);
+            } else if (classA[position].equalsIgnoreCase("Saturday Plans")) {
+                images.setImageResource(R.drawable.mindfulness);
+            } else {
+                images.setImageResource(R.drawable.entertainment);
+            }*/
