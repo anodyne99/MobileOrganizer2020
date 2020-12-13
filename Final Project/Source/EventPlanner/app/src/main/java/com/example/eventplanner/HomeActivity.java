@@ -1,35 +1,18 @@
 package com.example.eventplanner;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -50,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
         lunch = (Button) findViewById(R.id.launch);
-         show = (Button) findViewById(R.id.show);
+        show = (Button) findViewById(R.id.show);
         save = (Button) findViewById(R.id.save);
         registerBtn = (Button) findViewById(R.id.registerBtn);
         name = (EditText) findViewById(R.id.name);
@@ -79,12 +62,8 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(HomeActivity.this,"Data inserted successfully",Toast.LENGTH_LONG).show();
 
                 textView.setText("Name: " + na + " Age: " + ag  + " Gen: " + gen + " Loc: " + loc);
-
-
             }
         });
-
-
      }
 
 

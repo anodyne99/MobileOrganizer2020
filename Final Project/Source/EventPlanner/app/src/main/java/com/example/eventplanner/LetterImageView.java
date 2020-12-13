@@ -1,6 +1,6 @@
 //premade package pulled from https://drive.google.com/file/d/0B8jarv_wbK2UYkw1TWFqWmtmb1U/view
 
-package com.example.eventplanner.Utils;
+package com.example.eventplanner;
 
 import android.content.Context;
 import android.graphics.Canvas;
