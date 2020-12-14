@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Event Planner</string>
-    <string name="bttnText">+</string>
 
     <!--array filled with home options-->
     <string-array name="Home">
