@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Event Planner</string>
+    <string name="bttnText">+</string>
 
     <!--array filled with home options-->
     <string-array name="Home">
@@ -14,11 +15,11 @@
 
     <!--array filled with tab description-->
     <string-array name="Description">
-        <item>The Weekly View tab will allow you to create, view, and edit your weekly schedule</item>
-        <item>The Calendar View will allow you to view, add, remove items from your monthly calendar</item>
-        <item>The University Bookstore direct you to the UMKC Bookstore</item>
-        <item>The University  email will take you to the outlook log in screen</item>
-        <item>The Educational Resources will direct you to view study resources</item>
+        <item>The Weekly View tab will allow you to view your weekly schedule</item>
+        <item>The Calendar View tab will allow you to add new events to your schedule</item>
+        <item>The University Bookstore tab will direct you to the UMKC Bookstore</item>
+        <item>The University email tab will take you to the outlook log in screen</item>
+        <item>The Educational Resources tab will direct you to view study resources</item>
         <item>Need to de-stress? Check out these mindfulness techniques </item>
         <item>Tired? Check out our entertainment center</item>
     </string-array>
@@ -40,6 +41,7 @@
         <item>Youtube</item>
         <item>Facebook</item>
         <item>Twitter</item>
+        <item>Spotify</item>
     </string-array>
 
 

@@ -6,8 +6,7 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
-    // Allows youtube to be run from the app in OS 11
-    // due to changes in handling other apps opening google apps
+    <!-- allows the wellness activity to run on android 11 devices -->
     <queries>
         <intent>
             <action android:name="com.google.android.youtube.api.service.START" />
@@ -24,10 +23,12 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.example.eventplanner.IndividualDay"/>
         <activity android:name="com.example.eventplanner.WeeklyView" />
+        <activity android:name="com.example.eventplanner.MonthlyActivity"/>
         <activity android:name="com.example.eventplanner.HomeActivity" />
         <activity android:name="com.example.eventplanner.EntertainActivity" />
         <activity android:name="com.example.eventplanner.YoutubeActivity"
-            android:configChanges="orientation|screenSize"></activity>
+            android:configChanges="orientation|screenSize">
+        </activity>
 
         <activity android:name="com.example.eventplanner.LoginActivity">
             <intent-filter>

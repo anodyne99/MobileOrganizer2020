@@ -24,8 +24,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-/****************************************EDIT THIS FOR API INSERTION. THIS IS ONLY A LAYOUT*******
- *************************************************************************************************/
 public class IndividualDay extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -195,6 +193,5 @@ public class IndividualDay extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    // This is to see if this push will update properly now
 
 }

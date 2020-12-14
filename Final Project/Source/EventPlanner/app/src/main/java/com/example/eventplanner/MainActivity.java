@@ -1,8 +1,5 @@
 package com.example.eventplanner;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -19,14 +16,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;//makes toolbar function correctly
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar; //used to access toolbar created in activity_main
     private ListView lists; //used to access list from activity_main
 
-    /**Program start up
+    /**
+     * Program start up
+     *
      * @param savedInstanceState
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP) //allows viewCreator to work
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         int currentOrientation = this.getResources().getConfiguration().orientation;
-        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case 1: {//if second option is selected, open new activity displaying monthly calendar
+                        Intent intent = new Intent(MainActivity.this, MonthlyActivity.class);
+                        startActivity(intent);
                         break;
                     }
                     case 2: {//if third option is selected, it will open to umkc bookstore in new browser
@@ -113,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(entertainIntent);
                         break;
                     }
-                    default: break;
+                    default:
+                        break;
                 }
             }
         });
@@ -132,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * Constructor is created here. Used to help pupulate listview. Will be called on start up
+         *
          * @param c
          * @param title
          * @param descript
@@ -146,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * This section will return title's length
+         *
          * @return titleA.length
          */
         @Override
@@ -155,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * This section will return the title's postion
+         *
          * @param position
          * @return titleA[postion]
          */
@@ -165,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * This section will return the position
+         *
          * @param position
          * @return position
          */
@@ -175,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * This section will set each different view. Helps swap between the 2 main activities
+         *
          * @param position
          * @param convertView
          * @param parent
@@ -217,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
             return convertView;
         }
     }
-
 
 
 }

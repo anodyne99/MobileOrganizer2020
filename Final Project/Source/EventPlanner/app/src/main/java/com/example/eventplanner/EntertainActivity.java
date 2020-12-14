@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
-import org.w3c.dom.Text;
 
 
 public class EntertainActivity extends AppCompatActivity {
@@ -53,6 +51,7 @@ public class EntertainActivity extends AppCompatActivity {
         grid = (GridView) findViewById(R.id.simpleGrid);
     }
 
+    // Handles creation of the icon button grid. 2 columns.
     private void gridCreator(){
         String[] names = getResources().getStringArray(R.array.Entertainment);
 
@@ -85,6 +84,11 @@ public class EntertainActivity extends AppCompatActivity {
                     }
                     case 4: {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.twitter.com/"));
+                        startActivity(intent);
+                        break;
+                    }
+                    case 5: {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.spotify.com/"));
                         startActivity(intent);
                         break;
                     }
@@ -144,6 +148,9 @@ public class EntertainActivity extends AppCompatActivity {
             }
             else if (nameA[position].equalsIgnoreCase("Youtube")) {
                 image.setImageResource(R.drawable.youtube);
+            }
+            else if (nameA[position].equalsIgnoreCase("Spotify")){
+                image.setImageResource(R.drawable.spotify);
             }
             return convertView;
         }
