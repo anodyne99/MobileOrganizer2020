@@ -1,8 +1,6 @@
 package com.example.eventplanner;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -42,8 +40,6 @@ public class IndividualDay extends AppCompatActivity {
     private int dayOfWeekChosen;
     private Calendar today = GregorianCalendar.getInstance();
 
-    private static final int CALENDAR_PERMISSION_CODE = 1;
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP) //allows viewCreator to work
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +53,19 @@ public class IndividualDay extends AppCompatActivity {
         permissionChecker();
     }
 
+    // Callback for checking if Calendar Reading permissions are enabled after querying user for permissions
     private ActivityResultLauncher<String> requestPermissionLauncher =
+            // If permission has been granted, starts up the daily view
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
                     readCalendarEvent(getTimeOfEvent());
-                } else {
+                } else { // If permission has not been granted, redirects back to the weekly view
                     Intent redirect = new Intent(IndividualDay.this, WeeklyView.class);
                     startActivity(redirect);
                 }
             });
 
-
+    // Checks if the user has permissions granted for reading the system calendar
     public void permissionChecker() {
         if (ContextCompat.checkSelfPermission(
                 this, Manifest.permission.READ_CALENDAR) ==
@@ -78,7 +76,6 @@ public class IndividualDay extends AppCompatActivity {
                     Manifest.permission.READ_CALENDAR);
         }
     }
-
 
     public void readCalendarEvent(long[] arr) {
         if (arr == null || arr.length == 0) return;
