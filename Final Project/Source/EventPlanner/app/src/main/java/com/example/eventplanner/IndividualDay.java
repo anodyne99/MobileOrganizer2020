@@ -1,6 +1,9 @@
 package com.example.eventplanner;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,10 +14,12 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.text.SimpleDateFormat;
@@ -50,16 +55,30 @@ public class IndividualDay extends AppCompatActivity {
         create_toolbar();
         listCreator();
         permissionChecker();
-        readCalendarEvent(getTimeOfEvent());
     }
 
+    private ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    readCalendarEvent(getTimeOfEvent());
+                } else {
+                    Intent redirect = new Intent(IndividualDay.this, WeeklyView.class);
+                    startActivity(redirect);
+                }
+            });
+
+
     public void permissionChecker() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this, Manifest.permission.READ_CALENDAR) ==
+                PackageManager.PERMISSION_GRANTED) {
+            readCalendarEvent(getTimeOfEvent());
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR}, CALENDAR_PERMISSION_CODE);
+            requestPermissionLauncher.launch(
+                    Manifest.permission.READ_CALENDAR);
         }
     }
+
 
     public void readCalendarEvent(long[] arr) {
         if (arr == null || arr.length == 0) return;
