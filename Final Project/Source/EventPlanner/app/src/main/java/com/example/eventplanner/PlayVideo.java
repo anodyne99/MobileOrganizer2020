@@ -23,7 +23,7 @@ public class PlayVideo extends YouTubeBaseActivity implements YouTubePlayer.OnIn
         videoIdPlaceholder = intent.getStringExtra("videoId");
         //displays the video
         youTubePlayerView = findViewById(R.id.video_player);
-        //intilizing view. Uses API key
+        //intializing view. Uses API key
         youTubePlayerView.initialize("AIzaSyDZteUKqvy0W7C5vLUqDkKIcDrTpQ1RYHs", this);
 
     }

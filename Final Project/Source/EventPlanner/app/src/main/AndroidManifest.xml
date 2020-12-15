@@ -4,7 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" /> <!-- allows the wellness activity to run on android 11 devices -->
+
+    <!-- allows the wellness activity to run on android 11 devices -->
     <queries>
         <intent>
             <action android:name="com.google.android.youtube.api.service.START" />
