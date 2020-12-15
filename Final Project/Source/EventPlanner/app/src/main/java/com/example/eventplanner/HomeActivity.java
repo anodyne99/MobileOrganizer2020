@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         public void redirectToMainActivity (View v){ //name, age, gender, location
-            if (name.getText().toString().equals("")) {
+            /*if (name.getText().toString().equals("")) {
                 //name.setError("Please choose a date");
                 String test = user.getName();
                 Toast.makeText(HomeActivity.this, "The name field is empty. Please enter your name", Toast.LENGTH_LONG).show();
@@ -87,12 +87,12 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(HomeActivity.this, "The location field is empty. Please enter your location", Toast.LENGTH_LONG).show();
 
             }
-            else{
-                String test = user.getName();
-                Toast.makeText(HomeActivity.this, test, Toast.LENGTH_LONG).show();
+            else{*/
+                //String test = user.getName();
+                //Toast.makeText(HomeActivity.this, test, Toast.LENGTH_LONG).show();
                 Intent redirect = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(redirect);
-            }
+            //}
 
 
         }
