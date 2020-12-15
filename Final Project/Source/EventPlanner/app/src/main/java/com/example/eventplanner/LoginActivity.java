@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 if (password.length() < 6) {
-                    password.setError("Password must be >= 6 characters");
+                    password.setError("Password must contain at least 6 characters");
                     return;
                 }
                 mAuth.createUserWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         String mPassword = password.getText().toString().trim();
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(mPassword) ) {
+        if (TextUtils.isEmpty(mPassword) ) {
             password.setError("Password is required.");
 
         }
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (!task.isSuccessful()) {
                             // there was an error
-                            Toast.makeText(LoginActivity.this, "Authntication Failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_LONG).show();
 
                         } else {
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);

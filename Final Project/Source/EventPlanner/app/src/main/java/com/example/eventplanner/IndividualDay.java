@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
@@ -53,15 +53,17 @@ public class IndividualDay extends AppCompatActivity {
         permissionChecker();
     }
 
-    // Callback for checking if Calendar Reading permissions are enabled after querying user for permissions
     private ActivityResultLauncher<String> requestPermissionLauncher =
             // If permission has been granted, starts up the daily view
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    readCalendarEvent(getTimeOfEvent());
-                } else { // If permission has not been granted, redirects back to the weekly view
-                    Intent redirect = new Intent(IndividualDay.this, WeeklyView.class);
-                    startActivity(redirect);
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean isGranted) {
+                    if (isGranted) {
+                        IndividualDay.this.readCalendarEvent(IndividualDay.this.getTimeOfEvent());
+                    } else { // If permission has not been granted, redirects back to the weekly view
+                        Intent redirect = new Intent(IndividualDay.this, WeeklyView.class);
+                        IndividualDay.this.startActivity(redirect);
+                    }
                 }
             });
 
@@ -115,10 +117,10 @@ public class IndividualDay extends AppCompatActivity {
     }
 
     public long[] getTimeOfEvent() {
-       int todayDate = today.get(Calendar.DAY_OF_MONTH);
-       int dayToday = today.get(Calendar.DAY_OF_WEEK);
-       int month = today.get(Calendar.MONTH);
-       int year = today.get(Calendar.YEAR);
+        int todayDate = today.get(Calendar.DAY_OF_MONTH);
+        int dayToday = today.get(Calendar.DAY_OF_WEEK);
+        int month = today.get(Calendar.MONTH);
+        int year = today.get(Calendar.YEAR);
 
         int dateChosen;
         if (dayToday > dayOfWeekChosen){

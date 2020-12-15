@@ -1,39 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EntertainActivity" >
+    android:background="#000000"
+    tools:context=".EntertainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id = "@+id/toolbar_entertain"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:titleTextColor="#FFFFFF"
-        />
 
-    <!--used to display entertainment image grid-->
-    <GridView
-        android:id="@+id/simpleGrid"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:dividerHeight="10dp"
-        android:divider="@null"
-        android:layout_below="@id/toolbar_entertain"
-        android:numColumns="2"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
-        >
-    </GridView>
+    <ImageButton
+        android:id="@+id/ap"
+        android:background="#000000"
+        android:layout_width="173dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="16dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/prime_video"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cr"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.864"
+        android:onClick="launch_pr" />
 
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/war"
+        android:background="#000000"
+        android:layout_width="173dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="16dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/war"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rps"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125"
+        android:onClick="launch_war"/>
+
+    <ImageButton
+        android:id="@+id/hulu"
+        android:background="#000000"
+        android:layout_width="173dp"
+        android:layout_height="157dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/hulu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/netflix"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="launch_hulu"/>
+
+    <ImageButton
+        android:id="@+id/netflix"
+        android:background="#000000"
+        android:layout_width="173dp"
+        android:layout_height="157dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/netflix"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="launch_netflix"/>
+
+    <ImageButton
+        android:id="@+id/cr"
+        android:background="#000000"
+        android:layout_width="173dp"
+        android:layout_height="157dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/crunchy_roll"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.864"
+        android:onClick="launch_cr"/>
+
+    <ImageButton
+        android:id="@+id/rps"
+        android:background="#000000"
+        android:layout_width="173dp"
+        android:layout_height="157dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/reddit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125"
+        android:onClick="launch_reddit"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
