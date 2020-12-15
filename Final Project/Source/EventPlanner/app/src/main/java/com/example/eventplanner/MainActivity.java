@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(browserIntent);
                         break;
                     }
-                    case 3: {//if fourth option is selected it will open umkc email in new browser
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.umkc.edu/exchange/"));
+                    case 3: {//if fourth option is selected it will open the outlook login in their browser
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://login.microsoftonline.com/"));
                         startActivity(browserIntent);
                         break;
                     }

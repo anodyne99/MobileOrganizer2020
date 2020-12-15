@@ -124,7 +124,7 @@ public class IndividualDay extends AppCompatActivity {
 
         int dateChosen;
         if (dayToday > dayOfWeekChosen){
-            dateChosen =  todayDate - dayOfWeekChosen;
+            dateChosen =  todayDate - dayOfWeekChosen + 1;
         }
         else {
             int dayDiff = dayOfWeekChosen - dayToday;
