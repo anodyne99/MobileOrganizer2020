@@ -1,6 +1,7 @@
 package com.example.eventplanner;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,10 +12,12 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.text.SimpleDateFormat;
@@ -24,8 +27,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-/****************************************EDIT THIS FOR API INSERTION. THIS IS ONLY A LAYOUT*******
- *************************************************************************************************/
 public class IndividualDay extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -39,8 +40,6 @@ public class IndividualDay extends AppCompatActivity {
     private int dayOfWeekChosen;
     private Calendar today = GregorianCalendar.getInstance();
 
-    private static final int CALENDAR_PERMISSION_CODE = 1;
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP) //allows viewCreator to work
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,20 +51,38 @@ public class IndividualDay extends AppCompatActivity {
         create_toolbar();
         listCreator();
         permissionChecker();
-        readCalendarEvent(getTimeOfEvent());
     }
 
+    private ActivityResultLauncher<String> requestPermissionLauncher =
+            // If permission has been granted, starts up the daily view
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean isGranted) {
+                    if (isGranted) {
+                        IndividualDay.this.readCalendarEvent(IndividualDay.this.getTimeOfEvent());
+                    } else { // If permission has not been granted, redirects back to the weekly view
+                        Intent redirect = new Intent(IndividualDay.this, WeeklyView.class);
+                        IndividualDay.this.startActivity(redirect);
+                    }
+                }
+            });
+
+    // Checks if the user has permissions granted for reading the system calendar
     public void permissionChecker() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this, Manifest.permission.READ_CALENDAR) ==
+                PackageManager.PERMISSION_GRANTED) {
+            readCalendarEvent(getTimeOfEvent());
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR}, CALENDAR_PERMISSION_CODE);
+            requestPermissionLauncher.launch(
+                    Manifest.permission.READ_CALENDAR);
         }
     }
 
     public void readCalendarEvent(long[] arr) {
         if (arr == null || arr.length == 0) return;
-        String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + arr[0] + " ) AND ( " + CalendarContract.Events.DTEND + " <= " + arr[1] + " ))";
+        String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + arr[0] + " ) AND ( "
+                + CalendarContract.Events.DTEND + " <= " + arr[1] + " ))";
         Cursor cursor = getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
@@ -82,11 +99,14 @@ public class IndividualDay extends AppCompatActivity {
         endDates.clear();
         descriptions.clear();
 
+        // If the returned calendar is empty, doesn't try to iterate through it.
         if (CNames.length == 0) {
             return;
         }
+        // Iterates through the returned calendar and adds the events to the respective arraylists
         for (int i = 0; i < CNames.length; i++) {
-            nameOfEvent.add(cursor.getString(1) + " --- " + getDate(cursor.getLong(4)));
+            nameOfEvent.add(cursor.getString(1) + " --- " +
+                    getDate(cursor.getLong(4)));
             startDates.add(getDate(arr[0]));
             endDates.add(getDate(arr[1]));
 
@@ -95,20 +115,22 @@ public class IndividualDay extends AppCompatActivity {
             cursor.moveToNext();
         }
 
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameOfEvent);
+        // Outputs the
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, nameOfEvent);
         ListView listView = (ListView) findViewById(R.id.daily_list);
         listView.setAdapter(itemsAdapter);
     }
 
     public long[] getTimeOfEvent() {
-       int todayDate = today.get(Calendar.DAY_OF_MONTH);
-       int dayToday = today.get(Calendar.DAY_OF_WEEK);
-       int month = today.get(Calendar.MONTH);
-       int year = today.get(Calendar.YEAR);
+        int todayDate = today.get(Calendar.DAY_OF_MONTH);
+        int dayToday = today.get(Calendar.DAY_OF_WEEK);
+        int month = today.get(Calendar.MONTH);
+        int year = today.get(Calendar.YEAR);
 
         int dateChosen;
         if (dayToday > dayOfWeekChosen){
-            dateChosen =  todayDate - dayOfWeekChosen;
+            dateChosen =  todayDate - dayOfWeekChosen + 1;
         }
         else {
             int dayDiff = dayOfWeekChosen - dayToday;
@@ -195,6 +217,5 @@ public class IndividualDay extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    // This is to see if this push will update properly now
 
 }

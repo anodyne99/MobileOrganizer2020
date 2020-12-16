@@ -1,41 +1,103 @@
 package com.example.eventplanner;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
-public class YoutubeActivity extends YouTubeBaseActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    private YouTubePlayerView ytView;
+import java.util.ArrayList;
+
+import javax.crypto.AEADBadTagException;
+
+public class YoutubeActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
+    Adapter adapter;
+    ArrayList<Model> list = new ArrayList<>();
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wellness);
-        ytView = (YouTubePlayerView) findViewById(R.id.player);
+        setContentView(R.layout.activity_youtube);
 
-        ytView.initialize(Config.API_KEY, new YouTubePlayer.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadPlaylist(Config.PlaylistCode);
-            }
+        //Toast.makeText(YoutubeActivity.this, "Redirect works", Toast.LENGTH_LONG).show();
 
+        recyclerView = findViewById(R.id.recyclerView);
+
+        //making model and adapter files.
+        //model file used to set and get data
+        adapter = new Adapter(YoutubeActivity.this, list);
+        RecyclerView.LayoutManager  layoutManager = new LinearLayoutManager(getApplicationContext());
+        //setting the layout to recycler view
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        fetchData();
+
+
+    }
+    //fetches data from youtube api
+    private void fetchData(){
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UChSpME3QaSFAWK8Hpmg-Dyw&maxResults=30&key=AIzaSyDZteUKqvy0W7C5vLUqDkKIcDrTpQ1RYHs",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("items");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                JSONObject jsonVideoId = jsonObject1.getJSONObject("id");
+                                JSONObject jsonSnippet = jsonObject1.getJSONObject("snippet");
+                                JSONObject jsonThumbnail = jsonSnippet.getJSONObject("thumbnails").getJSONObject("medium");
+
+                                //json objects accessed, setting to model class
+                                Model md = new Model();
+
+                                if (i != 1 && i != 2 && i != 3 && i != 4 && i != 5 && i != 6 && i != 7 && i != 8) {
+                                    md.setVideoID(jsonVideoId.getString("videoId"));
+                                    md.setTitle(jsonSnippet.getString("title"));
+                                    md.setUrl(jsonThumbnail.getString("url"));
+
+                                    //adding accessed youtube api to array
+                                    list.add(md);
+
+                                }
+                                if (list.size() > 0) {
+                                    //Toast.makeText(YoutubeActivity.this, "LIST Accessed", Toast.LENGTH_LONG).show();
+
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
             @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Can't resolve", Toast.LENGTH_SHORT);
-                toast.show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(YoutubeActivity.this, "Error accessing json info", Toast.LENGTH_LONG).show();
             }
         });
+        requestQueue.add(stringRequest);
+
     }
-
-
-
-
 
 }

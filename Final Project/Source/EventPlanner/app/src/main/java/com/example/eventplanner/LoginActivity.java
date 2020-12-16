@@ -1,16 +1,15 @@
 package com.example.eventplanner;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 String mEmail = email.getText().toString().trim();
                 String mPassword = password.getText().toString().trim();
 
-                if (TextUtils.isEmpty(mEmail)) {
+                if (TextUtils.isEmpty(mEmail) ) {
                     email.setError("Email is required");
                     return;
                 }
@@ -65,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 if (password.length() < 6) {
-                    password.setError("Password must be >= 6 characters");
+                    password.setError("Password must contain at least 6 characters");
                     return;
                 }
                 mAuth.createUserWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -85,21 +84,26 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void redirectToHome(View v) {
-
-
         // Store values at the time of the login attempt.
         String mEmail = email.getText().toString().trim();
         String mPassword = password.getText().toString().trim();
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(mPassword) ) {
+        if (TextUtils.isEmpty(mPassword) && TextUtils.isEmpty(mEmail)) {
             password.setError("Password is required.");
+            email.setError("Email is required");
+            return;
+        }
 
+        if (TextUtils.isEmpty(mPassword)) {
+            password.setError("Password is required.");
+            return;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(mEmail)) {
             email.setError("Email is required");
+            return;
         }
 
         //authenticate user
@@ -110,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (!task.isSuccessful()) {
                             // there was an error
-                            Toast.makeText(LoginActivity.this, "Authntication Failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_LONG).show();
 
                         } else {
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);

@@ -1,6 +1,6 @@
 package com.example.eventplanner;
 
-//import android.support.v7.app.AppCompatActivity;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -14,7 +14,7 @@ public class User {
         this.location = location;
     }
 
-    public String getName() {
+   public String getName() {
         return name;
     }
 

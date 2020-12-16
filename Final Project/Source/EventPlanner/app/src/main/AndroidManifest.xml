@@ -4,16 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
-    // Allows youtube to be run from the app in OS 11
-    // due to changes in handling other apps opening google apps
+    <!-- allows the wellness activity to run on android 11 devices -->
     <queries>
         <intent>
             <action android:name="com.google.android.youtube.api.service.START" />
         </intent>
     </queries>
-
 
     <application
         android:allowBackup="true"
@@ -22,32 +19,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.eventplanner.IndividualDay"/>
-        <activity android:name="com.example.eventplanner.WeeklyView" />
-        <activity android:name="com.example.eventplanner.HomeActivity" />
-        <activity android:name="com.example.eventplanner.EntertainActivity" />
-        <activity android:name="com.example.eventplanner.YoutubeActivity"
-            android:configChanges="orientation|screenSize"></activity>
-
-        <activity android:name="com.example.eventplanner.LoginActivity">
+        <activity android:name=".PlayVideo"></activity>
+        <activity android:name=".WarCardGame" />
+        <activity android:name=".IndividualDay" />
+        <activity android:name=".WeeklyView" />
+        <activity android:name=".MonthlyActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".EntertainActivity" />
+        <activity
+            android:name=".YoutubeActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
-        <activity android:name="com.example.eventplanner.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>
