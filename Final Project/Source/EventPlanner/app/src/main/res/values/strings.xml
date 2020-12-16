@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Event Planner</string>
     <string name="bttnText">+</string>
+    <string name="welcome">Welcome!</string>
+    <string name="welcomeMessage">Please register or sign in below</string>
 
     <!--array filled with home options-->
     <string-array name="Home">
