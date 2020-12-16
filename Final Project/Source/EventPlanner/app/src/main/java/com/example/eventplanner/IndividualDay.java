@@ -81,7 +81,8 @@ public class IndividualDay extends AppCompatActivity {
 
     public void readCalendarEvent(long[] arr) {
         if (arr == null || arr.length == 0) return;
-        String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + arr[0] + " ) AND ( " + CalendarContract.Events.DTEND + " <= " + arr[1] + " ))";
+        String selection = "(( " + CalendarContract.Events.DTSTART + " >= " + arr[0] + " ) AND ( "
+                + CalendarContract.Events.DTEND + " <= " + arr[1] + " ))";
         Cursor cursor = getContentResolver()
                 .query(
                         Uri.parse("content://com.android.calendar/events"),
@@ -98,11 +99,14 @@ public class IndividualDay extends AppCompatActivity {
         endDates.clear();
         descriptions.clear();
 
+        // If the returned calendar is empty, doesn't try to iterate through it.
         if (CNames.length == 0) {
             return;
         }
+        // Iterates through the returned calendar and adds the events to the respective arraylists
         for (int i = 0; i < CNames.length; i++) {
-            nameOfEvent.add(cursor.getString(1) + " --- " + getDate(cursor.getLong(4)));
+            nameOfEvent.add(cursor.getString(1) + " --- " +
+                    getDate(cursor.getLong(4)));
             startDates.add(getDate(arr[0]));
             endDates.add(getDate(arr[1]));
 
@@ -111,7 +115,9 @@ public class IndividualDay extends AppCompatActivity {
             cursor.moveToNext();
         }
 
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameOfEvent);
+        // Outputs the
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, nameOfEvent);
         ListView listView = (ListView) findViewById(R.id.daily_list);
         listView.setAdapter(itemsAdapter);
     }
