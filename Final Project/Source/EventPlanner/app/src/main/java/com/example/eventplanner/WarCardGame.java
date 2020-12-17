@@ -12,12 +12,15 @@ import java.util.Random;
 
 public class WarCardGame extends AppCompatActivity {
 
+    //declaring variables for card images and textview
     ImageView iv_left_card, iv_right_card;
     TextView tv_left_score, tv_right_score, tv_war;
     Button deal_button;
 
+    //random number generator
     Random r_generator;
 
+    //saves the score
     int leftScore = 0, rightScore = 0;
 
     @Override
@@ -37,7 +40,7 @@ public class WarCardGame extends AppCompatActivity {
         deal_button = (Button) findViewById(R.id.deal);
         r_generator = new Random(); //creates random num generator
 
-        //creates the numbers that apepar randomly on card from 2 to 14
+        //creates the numbers that appear randomly on card from 2 to 14
         int leftCard = r_generator.nextInt(13)+2;
         int rightCard = r_generator.nextInt(13)+2;
 

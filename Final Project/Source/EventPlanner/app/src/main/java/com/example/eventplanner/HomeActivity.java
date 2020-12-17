@@ -1,7 +1,9 @@
 package com.example.eventplanner;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -56,14 +58,35 @@ public class HomeActivity extends AppCompatActivity {
                 String loc = location.getText().toString().trim();
 
 
-                user.setName(name.getText().toString().trim());
+                user.setName(na);
                 user.setAge(ag);
                 user.setGender(gen);
                 user.setLocation(loc);
                 reff.push().setValue(user);
                 Toast.makeText(HomeActivity.this,"Data inserted successfully",Toast.LENGTH_LONG).show();
 
-                textView.setText("Name: " + na + " Age: " + ag  + " Gen: " + gen + " Loc: " + loc);
+                //textView.setText("Name: " + na + " Age: " + ag  + " Gen: " + gen + " Loc: " + loc);
+            }
+        });
+
+
+        //sets on click listener for the show button
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String na =  name.getText().toString();
+               String ag = age.getText().toString();
+               String gen = gender.getText().toString();
+               String loc = location.getText().toString();
+
+               //checks if the info is empty. if so, notify user that the data is empty
+               if (na.equals("") || ag.equals("") || gen.equals("") || loc.equals("")){
+                   Toast.makeText(HomeActivity.this, "No data saved", Toast.LENGTH_LONG).show();
+                   textView.setText("No data has been entered");
+               }else{//otherwise display the info
+                   textView.setText("Name: " + na +" Age: " + ag  + " Gen: " + gen + " Loc: " + loc);
+               }
+
             }
         });
      }
@@ -71,6 +94,42 @@ public class HomeActivity extends AppCompatActivity {
 
 
         public void redirectToMainActivity (View v){ //name, age, gender, location
+
+        //if user opts not to put in info, it will ask if they are sure
+            if (name.getText().toString().equals("") || age.getText().toString().equals("") || gender.getText().toString().equals("")
+                    || location.getText().toString().equals("")) {
+                //generates a new alert dialog that will check if the user wishes to continue if they put in no information.
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle("You are missing information. Continue?");
+                alertDialogBuilder.setMessage("Clicking ok will allow you to continue to the main screen without saving your information. It is not required to use this app.");
+                alertDialogBuilder.setCancelable(false);
+
+                //if the user selects yes, it will redirect to the main activity
+                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent redirect = new Intent(HomeActivity.this, MainActivity.class);
+                        startActivity(redirect);
+                    }
+                });
+                //if the user selects cancel, it will stay on the page and inform the user to fill out the missing sections.
+                alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(HomeActivity.this, "Please fill out the missing information", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+                //creates the alert boxes
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }else{
+                //if the information is filled out, it will redirect to the main activity automatically
+                Intent redirect = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(redirect);
+            }
+
+
             /*if (name.getText().toString().equals("")) {
                 //name.setError("Please choose a date");
                 String test = user.getName();
@@ -90,8 +149,7 @@ public class HomeActivity extends AppCompatActivity {
             else{*/
                 //String test = user.getName();
                 //Toast.makeText(HomeActivity.this, test, Toast.LENGTH_LONG).show();
-                Intent redirect = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(redirect);
+
             //}
 
 

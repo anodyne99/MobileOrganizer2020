@@ -42,6 +42,7 @@ public class PlayVideo extends YouTubeBaseActivity implements YouTubePlayer.OnIn
 
     }
 
+    //functions required but not used. must be included.
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
 

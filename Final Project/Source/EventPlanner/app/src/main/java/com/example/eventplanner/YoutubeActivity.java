@@ -35,7 +35,7 @@ public class YoutubeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube);
 
-        //Toast.makeText(YoutubeActivity.this, "Redirect works", Toast.LENGTH_LONG).show();
+        // TEST Toast.makeText(YoutubeActivity.this, "Redirect works", Toast.LENGTH_LONG).show();
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -50,7 +50,10 @@ public class YoutubeActivity extends AppCompatActivity {
 
 
     }
-    //fetches data from youtube api
+
+    /**retrieves data from the youtube API
+     *
+     */
     private void fetchData(){
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UChSpME3QaSFAWK8Hpmg-Dyw&maxResults=30&key=AIzaSyDZteUKqvy0W7C5vLUqDkKIcDrTpQ1RYHs",
@@ -62,6 +65,7 @@ public class YoutubeActivity extends AppCompatActivity {
                             JSONArray jsonArray = jsonObject.getJSONArray("items");
 
                             for (int i = 0; i < jsonArray.length(); i++) {
+                                //access each part of the api to retrieve specific data
                                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                                 JSONObject jsonVideoId = jsonObject1.getJSONObject("id");
                                 JSONObject jsonSnippet = jsonObject1.getJSONObject("snippet");
@@ -70,6 +74,7 @@ public class YoutubeActivity extends AppCompatActivity {
                                 //json objects accessed, setting to model class
                                 Model md = new Model();
 
+                                //because of the formatting of the youtube api, the first 8 videos must be ignored. all subsequent videos are fine
                                 if (i != 1 && i != 2 && i != 3 && i != 4 && i != 5 && i != 6 && i != 7 && i != 8) {
                                     md.setVideoID(jsonVideoId.getString("videoId"));
                                     md.setTitle(jsonSnippet.getString("title"));
@@ -79,8 +84,9 @@ public class YoutubeActivity extends AppCompatActivity {
                                     list.add(md);
 
                                 }
+                                //while the list isnt empty notify the change in the adapter class
                                 if (list.size() > 0) {
-                                    //Toast.makeText(YoutubeActivity.this, "LIST Accessed", Toast.LENGTH_LONG).show();
+                                    // TEST Toast.makeText(YoutubeActivity.this, "LIST Accessed", Toast.LENGTH_LONG).show();
 
                                     adapter.notifyDataSetChanged();
                                 }
@@ -96,6 +102,7 @@ public class YoutubeActivity extends AppCompatActivity {
                 Toast.makeText(YoutubeActivity.this, "Error accessing json info", Toast.LENGTH_LONG).show();
             }
         });
+        //adds video once all information has been retrieved
         requestQueue.add(stringRequest);
 
     }
